@@ -2,10 +2,14 @@ import { Image, StyleSheet, Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import ActivitiesWidget from "../components/ActivitiesWidget"
 import CaloriesGoalWidget from "../components/CaloriesGoalWidget"
+import CaloriesIntakeWidget from "../components/CaloriesIntakeWidget"
 
 export default function HomeScreen() {
   return (
-    <SafeAreaView style={styles.homeScreenContainer}>
+    <SafeAreaView
+      edges={["top", "left", "right"]}
+      style={styles.homeScreenContainer}
+    >
       <View style={styles.profileInfo}>
         <Image
           style={styles.avatarImage}
@@ -17,11 +21,16 @@ export default function HomeScreen() {
           <Text style={styles.welcoming}>Welcome back!</Text>
           <Text style={styles.name}>Artur Reyti</Text>
         </View>
+        {/* Icon pro/upgrade */}
       </View>
 
       <CaloriesGoalWidget />
 
-      <ActivitiesWidget />
+      <View style={styles.widgetsContainer}>
+        <ActivitiesWidget />
+
+        <CaloriesIntakeWidget />
+      </View>
     </SafeAreaView>
   )
 }
@@ -53,5 +62,10 @@ const styles = StyleSheet.create({
     color: "#0a0a0a",
     fontSize: 16,
     fontWeight: "500",
+  },
+  widgetsContainer: {
+    gap: 20,
+    flex: 1,
+    paddingBottom: 12,
   },
 })

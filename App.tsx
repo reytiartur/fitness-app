@@ -17,10 +17,12 @@ import AuthScreen from "./screens/AuthScreen"
 import useAuth from "./hooks/useAuth"
 import { useEffect } from "react"
 
+
 const ScreenHeight = Dimensions.get("window").height
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
+
 
 export default function App() {
   const { userToken, getToken } = useAuth()
