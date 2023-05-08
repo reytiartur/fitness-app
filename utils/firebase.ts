@@ -8,7 +8,6 @@ import {
   User,
   sendPasswordResetEmail,
 } from "firebase/auth"
-import useAuth from "../hooks/useAuth"
 
 const firebaseConfig = {
   apiKey: "AIzaSyAGYX6AGvw1ONgjmT-Q-dvyGWFJd-YHi30",
@@ -22,8 +21,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 
-const { saveToken, deleteToken } = useAuth()
-
 export const createUserWithEmail = async (
   email: string,
   password: string,
@@ -35,7 +32,7 @@ export const createUserWithEmail = async (
   try {
     const { user } = await createUserWithEmailAndPassword(auth, email, password)
     const token = await user.getIdToken(true)
-    saveToken(token)
+    return token
   } catch (error) {
     if (error instanceof FirebaseError) {
       if (error.code === "auth/email-already-in-use") {
@@ -54,7 +51,7 @@ export const signInUserWithEmail = async (email: string, password: string) => {
   try {
     const { user } = await signInWithEmailAndPassword(auth, email, password)
     const token = await user.getIdToken(true)
-    saveToken(token)
+    return token
   } catch (error) {
     if (error instanceof Error) {
       alert("Sign in error!")
@@ -66,7 +63,6 @@ export const signInUserWithEmail = async (email: string, password: string) => {
 
 export const signOutUser = async () => {
   await signOut(auth)
-  deleteToken()
 }
 
 export const resetPassword = async (email: string) => {
