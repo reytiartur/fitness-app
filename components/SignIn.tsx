@@ -12,6 +12,7 @@ import { LinearGradient } from "expo-linear-gradient"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { AntDesign } from "@expo/vector-icons"
 import { resetPassword, signInUserWithEmail } from "../utils/firebase"
+import useAuth from "../hooks/useAuth"
 
 type Props = {
   styles: any
@@ -19,6 +20,7 @@ type Props = {
 }
 
 const SignIn = ({ styles, setComponent }: Props) => {
+  const { saveToken } = useAuth()
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -30,7 +32,10 @@ const SignIn = ({ styles, setComponent }: Props) => {
 
   const handleSubmit = async (e: NativeSyntheticEvent<Object>) => {
     e.preventDefault()
-    await signInUserWithEmail(inputs.email, inputs.password)
+    const token = await signInUserWithEmail(inputs.email, inputs.password)
+    if (token) {
+      saveToken(token)
+    }
   }
 
   return (
