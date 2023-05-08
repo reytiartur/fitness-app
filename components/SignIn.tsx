@@ -14,6 +14,7 @@ import { AntDesign } from "@expo/vector-icons"
 import { resetPassword, signInUserWithEmail } from "../utils/firebase"
 import useAuth from "../hooks/useAuth"
 
+
 type Props = {
   styles: any
   setComponent: React.Dispatch<React.SetStateAction<string>>

@@ -11,6 +11,7 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import { createUserWithEmail } from "../utils/firebase"
 import useAuth from "../hooks/useAuth"
 
+
 type Props = {
   styles: any
   setComponent: React.Dispatch<React.SetStateAction<string>>
