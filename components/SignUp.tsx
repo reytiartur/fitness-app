@@ -9,6 +9,7 @@ import AuthInput from "./AuthInput"
 import { LinearGradient } from "expo-linear-gradient"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { createUserWithEmail } from "../utils/firebase"
+import useAuth from "../hooks/useAuth"
 
 type Props = {
   styles: any
@@ -16,6 +17,7 @@ type Props = {
 }
 
 const SignUp = ({ styles, setComponent }: Props) => {
+  const { saveToken } = useAuth()
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -28,11 +30,14 @@ const SignUp = ({ styles, setComponent }: Props) => {
 
   const handleSubmit = async (e: NativeSyntheticEvent<Object>) => {
     e.preventDefault()
-    await createUserWithEmail(
+    const token = await createUserWithEmail(
       inputs.email,
       inputs.password,
       inputs.repeatPassword
     )
+    if (token) {
+      saveToken(token)
+    }
   }
 
   return (
