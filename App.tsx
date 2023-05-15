@@ -18,8 +18,6 @@ import useAuth from "./hooks/useAuth"
 import { useEffect } from "react"
 import { Provider } from "react-redux"
 import { store } from "./store"
-import { userProfile } from "./features/userSlice"
-import ProfileSettingScreen from "./screens/ProfileSettingScreen"
 
 const ScreenHeight = Dimensions.get("window").height
 
@@ -31,89 +29,75 @@ export default function App() {
 
   useEffect(() => {
     getToken()
-  }, [])
+  }, [userToken])
 
   return (
     <Provider store={store}>
       <NavigationContainer>
         {userToken ? (
-          userProfile ? (
-            <Tab.Navigator
-              initialRouteName="Home"
-              screenOptions={{
-                tabBarActiveTintColor: "#edaf51",
-                tabBarInactiveTintColor: "#656565",
-                tabBarStyle: styles.navbar,
-                tabBarLabelStyle: styles.label,
-                tabBarLabelPosition: "below-icon",
-                tabBarIconStyle: styles.icon,
-                headerShown: false,
-                tabBarHideOnKeyboard: true,
+          <Tab.Navigator
+            initialRouteName="HomeScreen"
+            screenOptions={{
+              tabBarActiveTintColor: "#edaf51",
+              tabBarInactiveTintColor: "#656565",
+              tabBarStyle: styles.navbar,
+              tabBarLabelStyle: styles.label,
+              tabBarLabelPosition: "below-icon",
+              tabBarIconStyle: styles.icon,
+              headerShown: false,
+              tabBarHideOnKeyboard: true,
+            }}
+          >
+            <Tab.Screen
+              name="HomeScreen"
+              component={HomeScreen}
+              options={{
+                tabBarIcon: ({ color }) => (
+                  <FontAwesome5 name="home" size={26} color={color} />
+                ),
               }}
-            >
-              <Tab.Screen
-                name="Home"
-                component={HomeScreen}
-                options={{
-                  tabBarIcon: ({ color }) => (
-                    <FontAwesome5 name="home" size={26} color={color} />
-                  ),
-                }}
-              />
-              <Tab.Screen
-                name="Progress"
-                component={ProgressScreen}
-                options={{
-                  tabBarIcon: ({ color }) => (
-                    <Fontisto name="bar-chart" size={26} color={color} />
-                  ),
-                }}
-              />
-              <Tab.Screen
-                name="Profile"
-                component={ProfileScreen}
-                options={{
-                  tabBarIcon: ({ color }) => (
-                    <Ionicons name="person-sharp" size={26} color={color} />
-                  ),
-                }}
-              />
-              <Tab.Screen
-                name="Exercises"
-                component={ExercisesScreen}
-                options={{
-                  tabBarIcon: ({ color }) => (
-                    <MaterialCommunityIcons
-                      name="dumbbell"
-                      size={26}
-                      color={color}
-                    />
-                  ),
-                }}
-              />
-              <Tab.Screen
-                name="Settings"
-                component={SettingsScreen}
-                options={{
-                  tabBarIcon: ({ color }) => (
-                    <Ionicons name="settings" size={26} color={color} />
-                  ),
-                }}
-              />
-            </Tab.Navigator>
-          ) : (
-            <Stack.Navigator
-              screenOptions={{
-                headerShown: false,
+            />
+            <Tab.Screen
+              name="Progress"
+              component={ProgressScreen}
+              options={{
+                tabBarIcon: ({ color }) => (
+                  <Fontisto name="bar-chart" size={26} color={color} />
+                ),
               }}
-            >
-              <Stack.Screen
-                name="ProfileSettingScreen"
-                component={ProfileSettingScreen}
-                options={{ presentation: "modal" }}
-              />
-            </Stack.Navigator>
-          )
+            />
+            <Tab.Screen
+              name="Profile"
+              component={ProfileScreen}
+              options={{
+                tabBarIcon: ({ color }) => (
+                  <Ionicons name="person-sharp" size={26} color={color} />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Exercises"
+              component={ExercisesScreen}
+              options={{
+                tabBarIcon: ({ color }) => (
+                  <MaterialCommunityIcons
+                    name="dumbbell"
+                    size={26}
+                    color={color}
+                  />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Settings"
+              component={SettingsScreen}
+              options={{
+                tabBarIcon: ({ color }) => (
+                  <Ionicons name="settings" size={26} color={color} />
+                ),
+              }}
+            />
+          </Tab.Navigator>
         ) : (
           <Stack.Navigator
             screenOptions={{
