@@ -10,7 +10,6 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons"
 import ProgressScreen from "./screens/ProgressScreen"
-import ProfileScreen from "./screens/ProfileScreen"
 import SettingsScreen from "./screens/SettingsScreen"
 import ExercisesScreen from "./screens/ExercisesScreen"
 import AuthScreen from "./screens/AuthScreen"
@@ -18,6 +17,7 @@ import useAuth from "./hooks/useAuth"
 import { useEffect } from "react"
 import { Provider } from "react-redux"
 import { store } from "./store"
+import { ProfileSettingScreen } from "./screens/ProfileSettingScreen"
 
 const ScreenHeight = Dimensions.get("window").height
 
@@ -68,7 +68,7 @@ export default function App() {
             />
             <Tab.Screen
               name="Profile"
-              component={ProfileScreen}
+              component={ProfileSettingScreen}
               options={{
                 tabBarIcon: ({ color }) => (
                   <Ionicons name="person-sharp" size={26} color={color} />

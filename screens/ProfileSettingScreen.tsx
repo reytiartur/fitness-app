@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text } from "react-native"
+import { View, StyleSheet, Text } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import {
   setAge,
@@ -49,7 +49,7 @@ export const ProfileSettingScreen = () => {
   return (
     <DismissKeyboardView>
       <SafeAreaView style={styles.container}>
-        <ScrollView>
+        <View>
           <Text style={styles.header}>
             {userProfile
               ? "Your body parameters"
@@ -105,11 +105,11 @@ export const ProfileSettingScreen = () => {
             name="weight"
             type="weight"
           />
+        </View>
 
-          <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-            <Text style={styles.text}>{!userProfile ? "Submit" : "Done"}</Text>
-          </TouchableOpacity>
-        </ScrollView>
+        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+          <Text style={styles.text}>{!userProfile ? "Submit" : "Done"}</Text>
+        </TouchableOpacity>
       </SafeAreaView>
     </DismissKeyboardView>
   )
@@ -117,7 +117,10 @@ export const ProfileSettingScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
+    height: "100%",
     paddingHorizontal: 20,
+    paddingVertical: 16,
+    justifyContent: "space-between",
   },
   header: {
     fontSize: 28,
@@ -134,10 +137,10 @@ const styles = StyleSheet.create({
     marginVertical: 6,
   },
   button: {
-    padding: 12,
+    padding: 14,
     backgroundColor: "#edaf51",
     borderRadius: 14,
-    margin: 20,
+    marginHorizontal: 20,
   },
   text: {
     fontSize: 18,
