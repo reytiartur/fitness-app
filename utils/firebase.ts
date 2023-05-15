@@ -9,6 +9,7 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth"
 
+
 const firebaseConfig = {
   apiKey: "AIzaSyAGYX6AGvw1ONgjmT-Q-dvyGWFJd-YHi30",
   authDomain: "fitness-app-a99fb.firebaseapp.com",

@@ -21,10 +21,12 @@ import { store } from "./store"
 import { userProfile } from "./features/userSlice"
 import ProfileSettingScreen from "./screens/ProfileSettingScreen"
 
+
 const ScreenHeight = Dimensions.get("window").height
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
+
 
 export default function App() {
   const { userToken, getToken } = useAuth()
