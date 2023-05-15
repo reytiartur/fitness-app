@@ -19,6 +19,7 @@ import { Provider } from "react-redux"
 import { store } from "./store"
 import { ProfileSettingScreen } from "./screens/ProfileSettingScreen"
 
+
 const ScreenHeight = Dimensions.get("window").height
 
 const Tab = createBottomTabNavigator()
