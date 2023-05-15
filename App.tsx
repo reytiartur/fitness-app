@@ -10,12 +10,14 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons"
 import ProgressScreen from "./screens/ProgressScreen"
-import ProfileScreen from "./screens/ProfileScreen"
 import SettingsScreen from "./screens/SettingsScreen"
 import ExercisesScreen from "./screens/ExercisesScreen"
 import AuthScreen from "./screens/AuthScreen"
 import useAuth from "./hooks/useAuth"
 import { useEffect } from "react"
+import { Provider } from "react-redux"
+import { store } from "./store"
+import { ProfileSettingScreen } from "./screens/ProfileSettingScreen"
 
 
 const ScreenHeight = Dimensions.get("window").height
@@ -23,20 +25,19 @@ const ScreenHeight = Dimensions.get("window").height
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
 
-
 export default function App() {
   const { userToken, getToken } = useAuth()
 
   useEffect(() => {
     getToken()
-  }, [])
+  }, [userToken])
 
   return (
-    <NavigationContainer>
-      {userToken ? (
-        userProfile ? (
+    <Provider store={store}>
+      <NavigationContainer>
+        {userToken ? (
           <Tab.Navigator
-            initialRouteName="Home"
+            initialRouteName="HomeScreen"
             screenOptions={{
               tabBarActiveTintColor: "#edaf51",
               tabBarInactiveTintColor: "#656565",
@@ -49,7 +50,7 @@ export default function App() {
             }}
           >
             <Tab.Screen
-              name="Home"
+              name="HomeScreen"
               component={HomeScreen}
               options={{
                 tabBarIcon: ({ color }) => (
@@ -68,7 +69,7 @@ export default function App() {
             />
             <Tab.Screen
               name="Profile"
-              component={ProfileScreen}
+              component={ProfileSettingScreen}
               options={{
                 tabBarIcon: ({ color }) => (
                   <Ionicons name="person-sharp" size={26} color={color} />
@@ -104,23 +105,11 @@ export default function App() {
               headerShown: false,
             }}
           >
-            <Stack.Screen
-              name="ProfileSettingScreen"
-              component={ProfileSettingScreen}
-              options={{ presentation: "modal" }}
-            />
+            <Stack.Screen name="AuthScreen" component={AuthScreen} />
           </Stack.Navigator>
-        )
-      ) : (
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          <Stack.Screen name="AuthScreen" component={AuthScreen} />
-        </Stack.Navigator>
-      )}
-    </NavigationContainer>
+        )}
+      </NavigationContainer>
+    </Provider>
   )
 }
 

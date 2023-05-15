@@ -3,8 +3,47 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import ActivitiesWidget from "../components/ActivitiesWidget"
 import CaloriesGoalWidget from "../components/CaloriesGoalWidget"
 import CaloriesIntakeWidget from "../components/CaloriesIntakeWidget"
+import { useLayoutEffect } from "react"
+import { useAppSelector } from "../features/userSlice"
+import { ParamListBase, useNavigation } from "@react-navigation/native"
+import {
+  NativeStackNavigationProp,
+  createNativeStackNavigator,
+} from "@react-navigation/native-stack"
+import { ProfileSettingScreen } from "./ProfileSettingScreen"
 
 export default function HomeScreen() {
+  const HomeStack = createNativeStackNavigator()
+
+  return (
+    <HomeStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <HomeStack.Screen name="Home" component={Home} />
+      <HomeStack.Screen
+        name="ProfileSettingScreen"
+        component={ProfileSettingScreen}
+        options={{
+          presentation: "modal",
+          gestureEnabled: false,
+        }}
+      />
+    </HomeStack.Navigator>
+  )
+}
+
+const Home = () => {
+  const userProfile = useAppSelector((state) => state.user.userProfile)
+  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>()
+
+  useLayoutEffect(() => {
+    if (!userProfile) {
+      navigation.navigate("HomeScreen", { screen: "ProfileSettingScreen" })
+    }
+  }, [])
+
   return (
     <SafeAreaView
       edges={["top", "left", "right"]}
